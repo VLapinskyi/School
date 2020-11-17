@@ -1,5 +1,5 @@
 package ua.com.foxminded.dao;
 
-public class CourseDOA {
+public class CourseDAO {
 
 }
