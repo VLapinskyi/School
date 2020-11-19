@@ -19,7 +19,7 @@ public class TablesCreatorDAO {
 				try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 					preparedStatement.execute();
 				} catch (SQLException e) {
-					System.out.println(e) ;
+					System.out.println(e);
 				}
 			}
 		} catch (SQLException e) {
