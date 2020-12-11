@@ -2,18 +2,18 @@ package ua.com.foxminded.domain.data_generator;
 
 import ua.com.foxminded.dao.CourseDAO;
 
-public class CoursesGenerator {
-	public void generateTenCourses () {
+class CoursesGenerator {
+	public void writeTenCourses () {
 		CourseDAO courseDAO = new CourseDAO();
-		courseDAO.insertCourse("math", "room 100");
-		courseDAO.insertCourse("biology", "room 102");
-		courseDAO.insertCourse("english", "room 103");
-		courseDAO.insertCourse("ukranian", "room 104");
-		courseDAO.insertCourse("russian", "room 105");
-		courseDAO.insertCourse("chemistry", "room 106");
-		courseDAO.insertCourse("geography", "room 107");
-		courseDAO.insertCourse("physical education", "room 108");
-		courseDAO.insertCourse("art", "room 109");
-		courseDAO.insertCourse("drawing", "room 110");
+		courseDAO.writeCourse("math", "room 100");
+		courseDAO.writeCourse("biology", "room 102");
+		courseDAO.writeCourse("english", "room 103");
+		courseDAO.writeCourse("ukranian", "room 104");
+		courseDAO.writeCourse("russian", "room 105");
+		courseDAO.writeCourse("chemistry", "room 106");
+		courseDAO.writeCourse("geography", "room 107");
+		courseDAO.writeCourse("physical education", "room 108");
+		courseDAO.writeCourse("art", "room 109");
+		courseDAO.writeCourse("drawing", "room 110");
 	}
 }

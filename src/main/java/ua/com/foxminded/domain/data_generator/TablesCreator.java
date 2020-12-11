@@ -7,7 +7,7 @@ import java.io.InputStreamReader;
 
 import ua.com.foxminded.dao.TablesCreatorDAO;
 
-public class TablesCreator {
+class TablesCreator {
 	public void createTables (String sqlScriptName) {
 		StringBuilder query = new StringBuilder();
 		try (BufferedReader readerScript = new BufferedReader(new InputStreamReader(getSQLScriptFromResources(sqlScriptName)))) {

@@ -5,12 +5,12 @@ import java.util.Random;
 
 import ua.com.foxminded.dao.GroupDAO;
 
-public class GroupsGenerator {
-	public void generateTenGroups () {
+class GroupsGenerator {
+	public void writeTenGroups () {
 		ArrayList<String> listWithRandomNames = generateTenNames();
 		for (int i = 0; i < listWithRandomNames.size(); i++) {
 			GroupDAO groupDAO = new GroupDAO();
-			groupDAO.insertGroup(listWithRandomNames.get(i));
+			groupDAO.writeGroup(listWithRandomNames.get(i));
 		}
 		
 	}
