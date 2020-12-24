@@ -1,25 +1,25 @@
 package ua.com.foxminded.domain;
 
-import java.util.ArrayList;
-
 public class Student {
 	private int studentId;
-	private int groupId;
 	private String firstName;
 	private String lastName;
-	private ArrayList<Course> courses = new ArrayList<>();
+	
+	public Student (String firstName, String lastName) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+	}
+	public Student (int studentId, String firstName, String lastName) {
+		this.studentId = studentId;
+		this.firstName = firstName;
+		this.lastName = lastName;
+	}
 	
 	public int getStudentId() {
 		return studentId;
 	}
 	public void setStudentId(int studentId) {
 		this.studentId = studentId;
-	}
-	public int getGroupId() {
-		return groupId;
-	}
-	public void setGroupId(int groupId) {
-		this.groupId = groupId;
 	}
 	public String getFirstName() {
 		return firstName;
@@ -33,10 +33,4 @@ public class Student {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	public ArrayList<Course> getCourses() {
-		return courses;
-	}
-	public void addCourse(Course course) {
-		courses.add(course);
-	}	
 }

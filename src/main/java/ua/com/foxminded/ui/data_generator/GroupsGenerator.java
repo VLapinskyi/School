@@ -1,25 +1,27 @@
-package ua.com.foxminded.domain.data_generator;
+package ua.com.foxminded.ui.data_generator;
 
 import java.util.ArrayList;
 import java.util.Random;
 
+import ua.com.foxminded.dao.CourseDAO;
 import ua.com.foxminded.dao.GroupDAO;
+import ua.com.foxminded.dao.StudentDAO;
+import ua.com.foxminded.dao.StudentsCoursesDAO;
+import ua.com.foxminded.domain.University;
 
 class GroupsGenerator {
-	public void writeTenGroups () {
+	private static Random random = RandomInstance.getRandomInstance();
+
+	public void createTenGroups () {
 		ArrayList<String> listWithRandomNames = generateTenNames();
-		for (int i = 0; i < listWithRandomNames.size(); i++) {
-			GroupDAO groupDAO = new GroupDAO();
-			groupDAO.writeGroup(listWithRandomNames.get(i));
-		}
-		
+		University university = new University(new GroupDAO(), new  StudentDAO(), new CourseDAO(), new StudentsCoursesDAO());
+		listWithRandomNames.stream().forEach(university :: addGroup);
 	}
-	
+
 	private ArrayList<String> generateTenNames() {
 		ArrayList<String> listWithRandomeNames = new ArrayList<>();
 		for (int i = 0; i < 10; i++) {
 			StringBuilder groupName = new StringBuilder();
-			Random random = new Random();
 			char firstLetter = (char) (random.nextInt(26) + 65);
 			char secondLetter = (char) (random.nextInt(26) + 65);
 			int firstNumber = random.nextInt(10);

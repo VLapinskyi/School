@@ -1,6 +1,7 @@
 package ua.com.foxminded.domain;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import ua.com.foxminded.dao.CourseDAO;
 import ua.com.foxminded.dao.GroupDAO;
@@ -8,10 +9,38 @@ import ua.com.foxminded.dao.StudentDAO;
 import ua.com.foxminded.dao.StudentsCoursesDAO;
 
 public class University {
-	public ArrayList<Group> getGroupsWithNoMoreStudentsThan(int requestedNumber) {
-		GroupDAO groupDAO = new GroupDAO();
-		StudentDAO studentDAO = new StudentDAO();
-		ArrayList<Group> allGroups = groupDAO.getAllGroups();
+	private GroupDAO groupDAO;
+	private StudentDAO studentDAO;
+	private CourseDAO courseDAO;
+	private StudentsCoursesDAO studentsCoursesDAO;
+	
+	public University (GroupDAO groupDAO, StudentDAO studentDAO, CourseDAO courseDAO, StudentsCoursesDAO studentsCoursesDAO) {
+		this.groupDAO = groupDAO;
+		this.studentDAO = studentDAO;
+		this.courseDAO = courseDAO;
+		this.studentsCoursesDAO = studentsCoursesDAO;
+	}
+	
+	public void addCourse (String courseName, String courseDescription) {
+		Course course = new Course (courseName, courseDescription);
+		courseDAO.create(course);
+	}
+	
+	public List<Course> getAllCourses () {
+		return courseDAO.findAll();
+	}
+	
+	public void addGroup (String groupName) {
+		Group group = new Group(groupName);
+		groupDAO.create(group);
+	}
+	
+	public List<Group> getAllGroups () {
+		return groupDAO.findAll();
+	}
+
+	public List<Group> getGroupsWithNoMoreStudentsThan(int requestedNumber) {
+		ArrayList<Group> allGroups = (ArrayList<Group>) groupDAO.findAll();
 		ArrayList<Group> resultGroups = new ArrayList<>();
 		allGroups.stream().forEach(group -> {
 			int numberOfStudentsInGroup = studentDAO.getNumberOfStudentsInGroup(group.getGroupId());
@@ -21,37 +50,34 @@ public class University {
 		return resultGroups;
 	}
 	
-	public ArrayList<Student> getStudentsFromCourseByName (String courseName) {
-		CourseDAO courseDAO = new CourseDAO();
-		int courseId = courseDAO.getCourseIdByName (courseName);
-		StudentsCoursesDAO studentsCoursesDAO = new StudentsCoursesDAO();
-		ArrayList<Integer> studentIdOnCourse = studentsCoursesDAO.getStudentsIdFromCourse(courseId);
-		StudentDAO studentDAO = new StudentDAO();
-		ArrayList<Student> studentsOnCourse = new ArrayList<>();
-		studentIdOnCourse.stream().forEach(studentId -> studentsOnCourse.add(studentDAO.getStudentById(studentId)));
+	public void setGroupForStudent(int studentId, int groupId) {
+		studentDAO.setGroupForStudent(studentId, groupId);
+	}
+	
+	public List<Student> getStudentsFromCourseByCourseName (String courseName) {
+		Course course = courseDAO.findByName(courseName);
+		ArrayList<Student> studentsOnCourse = (ArrayList<Student>) studentsCoursesDAO.getStudentsFromCourse(course.getCourseId());
 		return studentsOnCourse;
 	}
 	
 	public void addStudent(String firstName, String lastName) {
-		Student student = new Student();
-		student.setFirstName(firstName);
-		student.setLastName(lastName);
-		StudentDAO studentDAO = new StudentDAO();
-		studentDAO.writeStudent(student);
+		Student student = new Student(firstName, lastName);
+		studentDAO.create(student);
 	}
 	
 	public void deleteStudentById (int studentId) {
-		StudentDAO studentDAO = new StudentDAO();
-		studentDAO.deleteStudentById(studentId);
+		studentDAO.deleteById(studentId);
 	}
 	
 	public void addStudentToCourse (int studentId, int courseId) {
-		StudentsCoursesDAO studentsCorusesDAO = new StudentsCoursesDAO();
-		studentsCorusesDAO.addStudentToCourse(studentId, courseId);
+		studentsCoursesDAO.addStudentToCourse(studentId, courseId);
 	}
 	
 	public void deleteStudentFromCourse (int studentId, int courseId) {
-		StudentsCoursesDAO studentsCoursesDAO = new StudentsCoursesDAO();
 		studentsCoursesDAO.deleteStudentFromCourse(studentId, courseId);
+	}
+	
+	public List<Student> getAllStudents () {
+		return studentDAO.findAll();
 	}
 }

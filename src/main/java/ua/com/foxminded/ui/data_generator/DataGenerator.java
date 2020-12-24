@@ -1,15 +1,15 @@
-package ua.com.foxminded.domain.data_generator;
+package ua.com.foxminded.ui.data_generator;
 
 public class DataGenerator {
 	public void generateRandomData() {
 		TablesCreator tablesCreator = new TablesCreator();
 		tablesCreator.createTables("Creating Tables.sql");
 		GroupsGenerator groupsGenerator = new GroupsGenerator();
-		groupsGenerator.writeTenGroups();
+		groupsGenerator.createTenGroups();
 		CoursesGenerator coursesGenerator = new CoursesGenerator();
-		coursesGenerator.writeTenCourses();
+		coursesGenerator.createTenCourses();
 		StudentsGenerator studentsGenerator = new StudentsGenerator();
-		studentsGenerator.writeTwoHundredStudents();
+		studentsGenerator.createTwoHundredRandomStudents();
 		studentsGenerator.setRandomGroupsForStudents();
 		studentsGenerator.setRandomCoursesForStudents();
 	}
