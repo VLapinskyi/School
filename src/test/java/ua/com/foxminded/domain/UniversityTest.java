@@ -5,7 +5,6 @@ import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,8 +17,6 @@ import ua.com.foxminded.dao.StudentDAO;
 import ua.com.foxminded.dao.StudentsCoursesDAO;
 
 class UniversityTest {
-	
-	
 	@Mock private CourseDAO courseDAO;
 	@Mock private GroupDAO groupDAO;
 	@Mock private StudentDAO studentDAO;
@@ -27,13 +24,7 @@ class UniversityTest {
 	
 	ArrayList<Group> allGroups;
 	ArrayList<Student> allStudents;
-	HashMap<Student, Group> studentsGroups;
 	University university;
-	Group group1;
-	Group group2;
-	Group group3;
-	Group group4;
-	Group group5;
 	
 	@BeforeEach
 	public void init () {
@@ -42,12 +33,12 @@ class UniversityTest {
 	}
 
 	@Test
-	void shouldGetGroupsWithNoMoreThanThreeStudents() {
-		group1 = new Group(1, "QW-01");
-		group2 = new Group(2, "AS-02");
-		group3 = new Group(3, "ZX-03");
-		group4 = new Group(4, "ER-04");
-		group5 = new Group(5, "DF-05");
+	public void shouldGetGroupsWithNoMoreThanThreeStudents() {
+		Group group1 = new Group(1, "QW-01");
+		Group group2 = new Group(2, "AS-02");
+		Group group3 = new Group(3, "ZX-03");
+		Group group4 = new Group(4, "ER-04");
+		Group group5 = new Group(5, "DF-05");
 		allGroups = new ArrayList<>(Arrays.asList(
 				group1, group2, group3, group4, group5));
 		when(groupDAO.findAll()).thenReturn(allGroups);

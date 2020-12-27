@@ -9,7 +9,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
  class PropertiesForDAO {
-	private static final String PROPERTIES_FILE_NAME = "queries.properties";
+	private static final String PROPERTIES_FILE_NAME = "database.properties";
 	private static Logger logger = LogManager.getLogger(PropertiesForDAO.class);
 	
 	private PropertiesForDAO() {

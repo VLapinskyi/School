@@ -3,18 +3,18 @@ package ua.com.foxminded.ui.data_generator;
 import java.util.ArrayList;
 import java.util.Random;
 
-import ua.com.foxminded.dao.CourseDAO;
-import ua.com.foxminded.dao.GroupDAO;
-import ua.com.foxminded.dao.StudentDAO;
-import ua.com.foxminded.dao.StudentsCoursesDAO;
 import ua.com.foxminded.domain.University;
 
 class GroupsGenerator {
 	private static Random random = RandomInstance.getRandomInstance();
+	private University university;
+	
+	public GroupsGenerator(University university) {
+		this.university = university;
+	}
 
 	public void createTenGroups () {
 		ArrayList<String> listWithRandomNames = generateTenNames();
-		University university = new University(new GroupDAO(), new  StudentDAO(), new CourseDAO(), new StudentsCoursesDAO());
 		listWithRandomNames.stream().forEach(university :: addGroup);
 	}
 
