@@ -9,20 +9,13 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
 public class ConnectionFactory {
-	private static final String URL;
-	private static final String USER;
-	private static final String PASSWORD;
-	
-	private static Properties properties;
+	private static Properties properties = PropertiesForDAO.getQueries();;
 	private static Logger logger = LogManager.getLogger(ConnectionFactory.class);
 	private static Connection connection;
 	
-	static {
-		properties = PropertiesForDAO.getQueries();
-		URL = properties.getProperty("url");
-		USER = properties.getProperty("user");
-		PASSWORD = properties.getProperty("password");
-	}
+	private static final String URL = properties.getProperty("url");
+	private static final String USER = properties.getProperty("user");
+	private static final String PASSWORD = properties.getProperty("password");
 	
 	private ConnectionFactory() {
 	    throw new IllegalStateException("Utility class");
