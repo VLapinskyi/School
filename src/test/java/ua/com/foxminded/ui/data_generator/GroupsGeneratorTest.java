@@ -16,7 +16,7 @@ import ua.com.foxminded.dao.CourseDAO;
 import ua.com.foxminded.dao.GroupDAO;
 import ua.com.foxminded.dao.StudentDAO;
 import ua.com.foxminded.dao.StudentsCoursesDAO;
-import ua.com.foxminded.domain.University;
+import ua.com.foxminded.domain.Service;
 
 class GroupsGeneratorTest {
 	@Mock private CourseDAO courseDAO;
@@ -26,28 +26,28 @@ class GroupsGeneratorTest {
 	
 	@Captor private ArgumentCaptor<String> captureNames;
 	
-	private University university;
-	private University spyUniversity;
+	private Service service;
+	private Service spyService;
 	private GroupsGenerator groupsGenerator;
 	
 	@BeforeEach
-	public void init() {
+	void init() {
 		MockitoAnnotations.openMocks(this);
-		university = new University(groupDAO, studentDAO, courseDAO, studentsCoursesDAO);
-		spyUniversity = spy(university);
-		groupsGenerator = new GroupsGenerator(spyUniversity);
+		service = new Service(groupDAO, studentDAO, courseDAO, studentsCoursesDAO);
+		spyService = spy(service);
+		groupsGenerator = new GroupsGenerator(spyService);
 	}
 	
 	@Test
-	public void shouldCreateTenGroups() {
+	void shouldCreateTenGroups() {
 		groupsGenerator.createTenGroups();
-		verify(spyUniversity, times(10)).addGroup(anyString());
+		verify(spyService, times(10)).addGroup(anyString());
 	}
 
 	@Test
-	public void shouldGenerateRightNames() {
+	void shouldGenerateRightNames() {
 		groupsGenerator.createTenGroups();
-		verify(spyUniversity, times(10)).addGroup(captureNames.capture());
+		verify(spyService, times(10)).addGroup(captureNames.capture());
 		ArrayList<String> names = new ArrayList<>(captureNames.getAllValues());
 		names.stream().forEach(name -> assertTrue(name.matches("[A-Z]{2}-\\d{2}")));
 	}

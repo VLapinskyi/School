@@ -8,13 +8,13 @@ import ua.com.foxminded.dao.GroupDAO;
 import ua.com.foxminded.dao.StudentDAO;
 import ua.com.foxminded.dao.StudentsCoursesDAO;
 
-public class University {
+public class Service {
 	private GroupDAO groupDAO;
 	private StudentDAO studentDAO;
 	private CourseDAO courseDAO;
 	private StudentsCoursesDAO studentsCoursesDAO;
 	
-	public University (GroupDAO groupDAO, StudentDAO studentDAO, CourseDAO courseDAO, StudentsCoursesDAO studentsCoursesDAO) {
+	public Service (GroupDAO groupDAO, StudentDAO studentDAO, CourseDAO courseDAO, StudentsCoursesDAO studentsCoursesDAO) {
 		this.groupDAO = groupDAO;
 		this.studentDAO = studentDAO;
 		this.courseDAO = courseDAO;
@@ -56,8 +56,7 @@ public class University {
 	
 	public List<Student> getStudentsFromCourseByCourseName (String courseName) {
 		Course course = courseDAO.findByName(courseName);
-		ArrayList<Student> studentsOnCourse = (ArrayList<Student>) studentsCoursesDAO.getStudentsFromCourse(course.getCourseId());
-		return studentsOnCourse;
+		return (ArrayList<Student>) studentsCoursesDAO.getStudentsFromCourse(course.getCourseId());
 	}
 	
 	public void addStudent(String firstName, String lastName) {

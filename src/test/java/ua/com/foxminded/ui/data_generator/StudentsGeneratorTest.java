@@ -21,7 +21,7 @@ import ua.com.foxminded.dao.StudentsCoursesDAO;
 import ua.com.foxminded.domain.Course;
 import ua.com.foxminded.domain.Group;
 import ua.com.foxminded.domain.Student;
-import ua.com.foxminded.domain.University;
+import ua.com.foxminded.domain.Service;
 
 class StudentsGeneratorTest {
 	@Mock private CourseDAO courseDAO;
@@ -33,18 +33,18 @@ class StudentsGeneratorTest {
 	@Captor ArgumentCaptor<Integer> coursesIdCaptor;
 	@Captor ArgumentCaptor<Integer> studentsIdCaptor;
 	
-	private University university;
-	private University spyUniversity;
+	private Service service;
+	private Service spyService;
 	private StudentsGenerator studentsGenerator;
 	private ArrayList<Student> allStudents;
 	ArrayList<Course> allCourses;
 	
 	@BeforeEach
-	public void init () {
+	void init () {
 		MockitoAnnotations.openMocks(this);
-		university = new University(groupDAO, studentDAO, courseDAO, studentsCoursesDAO);
-		spyUniversity = spy(university);
-		studentsGenerator = new StudentsGenerator(spyUniversity);
+		service = new Service(groupDAO, studentDAO, courseDAO, studentsCoursesDAO);
+		spyService = spy(service);
+		studentsGenerator = new StudentsGenerator(spyService);
 		allStudents = new ArrayList<>(Arrays.asList(
 				new Student(1, "Myroslava", "Ruban"),
 				new Student(2, "Oksana", "Bochkovska"),
@@ -65,42 +65,42 @@ class StudentsGeneratorTest {
 	}
 		
 	@Test
-	public void shouldCreateTwoHundredRandomStudents() {
+	void shouldCreateTwoHundredRandomStudents() {
 		studentsGenerator.createTwoHundredRandomStudents();
-		verify(spyUniversity, times(200)).addStudent(anyString(), anyString());
+		verify(spyService, times(200)).addStudent(anyString(), anyString());
 	}
 
 	@Test
-	public void shouldSetCorrectRandomGroupsId() {
+	void shouldSetCorrectRandomGroupsId() {
 		ArrayList<Group> allGroups = new ArrayList<>(Arrays.asList(
-				new Group(1, "QW-1"),
-				new Group(2, "QE-2"),
-				new Group(3, "QR-3"),
-				new Group(4, "QT-4"),
-				new Group(5, "QY-5")));
+				new Group(1, "QW-01"),
+				new Group(2, "QE-02"),
+				new Group(3, "QR-03"),
+				new Group(4, "QT-04"),
+				new Group(5, "QY-05")));
 		ArrayList<Integer> groupsId = new ArrayList<>();
 		allGroups.stream().forEach(group -> groupsId.add(group.getGroupId()));
-		when(spyUniversity.getAllStudents()).thenReturn(allStudents);
-		when(spyUniversity.getAllGroups()).thenReturn(allGroups);
+		when(spyService.getAllStudents()).thenReturn(allStudents);
+		when(spyService.getAllGroups()).thenReturn(allGroups);
 		studentsGenerator.setRandomGroupsForStudents();
-		verify(spyUniversity, times(allStudents.size())).setGroupForStudent(anyInt(), groupsIdCaptor.capture());
+		verify(spyService, times(allStudents.size())).setGroupForStudent(anyInt(), groupsIdCaptor.capture());
 		ArrayList<Integer> generatedGroupsId = new ArrayList<>(groupsIdCaptor.getAllValues());
 		generatedGroupsId.stream().forEach(id -> assertTrue(groupsId.contains(id)));
 	}
 
 	@Test
-	public void shouldSetCorrectRandomCoursesAndStudentsId() {	
+	void shouldSetCorrectRandomCoursesAndStudentsId() {	
 	ArrayList<Integer> coursesId = new ArrayList<>();
 	allCourses.stream().forEach(course -> coursesId.add(course.getCourseId()));
 	ArrayList<Integer> studentsId = new ArrayList<>();
 	allStudents.stream().forEach(student -> studentsId.add(student.getStudentId()));
 	
-	when(spyUniversity.getAllStudents()).thenReturn(allStudents);
-	when(spyUniversity.getAllCourses()).thenReturn(allCourses);
+	when(spyService.getAllStudents()).thenReturn(allStudents);
+	when(spyService.getAllCourses()).thenReturn(allCourses);
 	
 	studentsGenerator.setRandomCoursesForStudents();
 	
-	verify(spyUniversity, atLeastOnce()).addStudentToCourse(studentsIdCaptor.capture(), coursesIdCaptor.capture());
+	verify(spyService, atLeastOnce()).addStudentToCourse(studentsIdCaptor.capture(), coursesIdCaptor.capture());
 	ArrayList<Integer> generatedStudentsId = new ArrayList<>(studentsIdCaptor.getAllValues());
 	ArrayList<Integer> generatedCoursesId = new ArrayList<>(coursesIdCaptor.getAllValues());
 	
@@ -109,18 +109,18 @@ class StudentsGeneratorTest {
 	}
 	
 	@Test
-	public void shouldSetFromOneToThreeCoursesForStudent() {
+	void shouldSetFromOneToThreeCoursesForStudent() {
 		ArrayList<Integer> coursesId = new ArrayList<>();
 		allCourses.stream().forEach(course -> coursesId.add(course.getCourseId()));
 		ArrayList<Integer> studentsId = new ArrayList<>();
 		allStudents.stream().forEach(student -> studentsId.add(student.getStudentId()));
 		
-		when(spyUniversity.getAllStudents()).thenReturn(allStudents);
-		when(spyUniversity.getAllCourses()).thenReturn(allCourses);
+		when(spyService.getAllStudents()).thenReturn(allStudents);
+		when(spyService.getAllCourses()).thenReturn(allCourses);
 		
 		studentsGenerator.setRandomCoursesForStudents();
 		
-		verify(spyUniversity, atLeastOnce()).addStudentToCourse(studentsIdCaptor.capture(), coursesIdCaptor.capture());
+		verify(spyService, atLeastOnce()).addStudentToCourse(studentsIdCaptor.capture(), coursesIdCaptor.capture());
 		ArrayList<Integer> generatedStudentsId = new ArrayList<>(studentsIdCaptor.getAllValues());
 		ArrayList<Integer> generatedCoursesId = new ArrayList<>(coursesIdCaptor.getAllValues());
 		studentsId.stream().forEach(studentId -> {

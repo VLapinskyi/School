@@ -3,19 +3,19 @@ package ua.com.foxminded.ui.data_generator;
 import java.util.ArrayList;
 import java.util.Random;
 
-import ua.com.foxminded.domain.University;
+import ua.com.foxminded.domain.Service;
 
 class GroupsGenerator {
 	private static Random random = RandomInstance.getRandomInstance();
-	private University university;
+	private Service service;
 	
-	public GroupsGenerator(University university) {
-		this.university = university;
+	public GroupsGenerator(Service service) {
+		this.service = service;
 	}
 
 	public void createTenGroups () {
 		ArrayList<String> listWithRandomNames = generateTenNames();
-		listWithRandomNames.stream().forEach(university :: addGroup);
+		listWithRandomNames.stream().forEach(service :: addGroup);
 	}
 
 	private ArrayList<String> generateTenNames() {

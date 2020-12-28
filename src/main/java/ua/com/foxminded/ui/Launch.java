@@ -8,7 +8,7 @@ import ua.com.foxminded.dao.StudentDAO;
 import ua.com.foxminded.dao.StudentsCoursesDAO;
 import ua.com.foxminded.domain.Group;
 import ua.com.foxminded.domain.Student;
-import ua.com.foxminded.domain.University;
+import ua.com.foxminded.domain.Service;
 import ua.com.foxminded.ui.data_generator.DataGenerator;
 
 public class Launch {
@@ -16,13 +16,13 @@ public class Launch {
 		DataGenerator datagenerator = new DataGenerator();
 		datagenerator.generateRandomData();
 		
-		University university = new University(new GroupDAO(), new  StudentDAO(), new CourseDAO(), new StudentsCoursesDAO()); 
-		 ArrayList<Group> groupsWithNoMoreTenStudents = (ArrayList<Group>) university.getGroupsWithNoMoreStudentsThan(10);
-		 ArrayList<Student> studentsOnCourse = (ArrayList<Student>) university.getStudentsFromCourseByCourseName("math");
-		 university.addStudent("Valentyn", "Lapinskyi");
-		 university.deleteStudentById(1);
-		 university.addStudentToCourse(2, 3);
-		 university.deleteStudentFromCourse(2, 3);
+		Service service = new Service(new GroupDAO(), new  StudentDAO(), new CourseDAO(), new StudentsCoursesDAO()); 
+		 ArrayList<Group> groupsWithNoMoreTenStudents = (ArrayList<Group>) service.getGroupsWithNoMoreStudentsThan(10);
+		 ArrayList<Student> studentsOnCourse = (ArrayList<Student>) service.getStudentsFromCourseByCourseName("math");
+		 service.addStudent("Valentyn", "Lapinskyi");
+		 service.deleteStudentById(1);
+		 service.addStudentToCourse(2, 3);
+		 service.deleteStudentFromCourse(2, 3);
 		 
 	} 
 }

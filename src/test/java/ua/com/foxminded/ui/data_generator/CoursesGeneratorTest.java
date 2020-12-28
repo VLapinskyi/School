@@ -1,4 +1,4 @@
-package ua.com.foxminded.ui.data_generator;
+ package ua.com.foxminded.ui.data_generator;
 
 import static org.mockito.Mockito.*;
 
@@ -12,7 +12,7 @@ import ua.com.foxminded.dao.CourseDAO;
 import ua.com.foxminded.dao.GroupDAO;
 import ua.com.foxminded.dao.StudentDAO;
 import ua.com.foxminded.dao.StudentsCoursesDAO;
-import ua.com.foxminded.domain.University;
+import ua.com.foxminded.domain.Service;
 
 class CoursesGeneratorTest {
 	@Mock private CourseDAO courseDAO;
@@ -20,21 +20,21 @@ class CoursesGeneratorTest {
 	@Mock private StudentDAO studentDAO;
 	@Mock private StudentsCoursesDAO studentsCoursesDAO;
 	
-	private University university;
-	private University spyUniversity;
+	private Service service;
+	private Service spyService;
 	private CoursesGenerator coursesGenerator;
 	
 	@BeforeEach
-	public void init () {
+	void init () {
 		MockitoAnnotations.openMocks(this);
-		university = new University(groupDAO, studentDAO, courseDAO, studentsCoursesDAO);
-		spyUniversity = spy(university);
-		coursesGenerator = new CoursesGenerator(spyUniversity);
+		service = new Service(groupDAO, studentDAO, courseDAO, studentsCoursesDAO);
+		spyService = spy(service);
+		coursesGenerator = new CoursesGenerator(spyService);
 	}
 	@Test
-	public void shouldCreateTenCourses() {
+	void shouldCreateTenCourses() {
 		coursesGenerator.createTenCourses();
-		verify(spyUniversity, times(10)).addCourse(anyString(), anyString());
+		verify(spyService, times(10)).addCourse(anyString(), anyString());
 	}
 
 }
