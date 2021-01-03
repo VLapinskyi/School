@@ -1,4 +1,4 @@
-package ua.com.foxminded.ui.data_generator;
+package ua.com.foxminded.ui.data_generator.generator_parts;
 
 
 import java.security.NoSuchAlgorithmException;

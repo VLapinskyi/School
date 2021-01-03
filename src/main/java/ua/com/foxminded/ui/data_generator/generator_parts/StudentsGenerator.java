@@ -1,4 +1,4 @@
-package ua.com.foxminded.ui.data_generator;
+package ua.com.foxminded.ui.data_generator.generator_parts;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,7 +9,7 @@ import ua.com.foxminded.domain.Group;
 import ua.com.foxminded.domain.Student;
 import ua.com.foxminded.domain.Service;
 
-class StudentsGenerator {
+public class StudentsGenerator {
 	private static Random random = RandomInstance.getRandomInstance();
 	private Service service;
 	

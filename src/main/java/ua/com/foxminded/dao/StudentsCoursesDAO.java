@@ -10,11 +10,13 @@ import java.util.Properties;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import ua.com.foxminded.dao.settings.ConnectionFactory;
+import ua.com.foxminded.dao.settings.PropertiesForQueries;
 import ua.com.foxminded.domain.Student;
 
 public class StudentsCoursesDAO {
 	private static Logger logger = LogManager.getLogger(StudentsCoursesDAO.class);
-	Properties properties = PropertiesForDAO.getQueries();
+	Properties properties = PropertiesForQueries.getQueries();
 
 	public void addStudentToCourse (int studentId, int courseId) {
 		String query = properties.getProperty("add.student.to.course");

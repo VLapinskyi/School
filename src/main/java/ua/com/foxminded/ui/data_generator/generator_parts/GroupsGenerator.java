@@ -1,11 +1,11 @@
-package ua.com.foxminded.ui.data_generator;
+package ua.com.foxminded.ui.data_generator.generator_parts;
 
 import java.util.ArrayList;
 import java.util.Random;
 
 import ua.com.foxminded.domain.Service;
 
-class GroupsGenerator {
+public class GroupsGenerator {
 	private static Random random = RandomInstance.getRandomInstance();
 	private Service service;
 	

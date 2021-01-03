@@ -10,11 +10,13 @@ import java.util.Properties;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import ua.com.foxminded.dao.settings.ConnectionFactory;
+import ua.com.foxminded.dao.settings.PropertiesForQueries;
 import ua.com.foxminded.domain.Course;
 
 public class CourseDAO implements GenericDAO<Course>{
 	private static Logger logger = LogManager.getLogger(CourseDAO.class);
-	private Properties properties = PropertiesForDAO.getQueries();
+	private Properties properties = PropertiesForQueries.getQueries();
 
 	@Override
 	public void create(Course course) {

@@ -1,12 +1,14 @@
- package ua.com.foxminded.ui.data_generator;
+package ua.com.foxminded.ui.data_generator.generator_parts;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-
 
 import ua.com.foxminded.dao.CourseDAO;
 import ua.com.foxminded.dao.GroupDAO;

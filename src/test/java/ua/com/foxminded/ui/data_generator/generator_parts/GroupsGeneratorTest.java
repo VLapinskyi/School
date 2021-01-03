@@ -1,7 +1,10 @@
-package ua.com.foxminded.ui.data_generator;
+package ua.com.foxminded.ui.data_generator.generator_parts;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 import java.util.ArrayList;
 
@@ -51,5 +54,4 @@ class GroupsGeneratorTest {
 		ArrayList<String> names = new ArrayList<>(captureNames.getAllValues());
 		names.stream().forEach(name -> assertTrue(name.matches("[A-Z]{2}-\\d{2}")));
 	}
-
 }

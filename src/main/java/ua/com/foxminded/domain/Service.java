@@ -22,8 +22,7 @@ public class Service {
 	}
 	
 	public void addCourse (String courseName, String courseDescription) {
-		Course course = new Course (courseName, courseDescription);
-		courseDAO.create(course);
+		courseDAO.create(new Course (courseName, courseDescription));
 	}
 	
 	public List<Course> getAllCourses () {
@@ -56,7 +55,7 @@ public class Service {
 	
 	public List<Student> getStudentsFromCourseByCourseName (String courseName) {
 		Course course = courseDAO.findByName(courseName);
-		return (ArrayList<Student>) studentsCoursesDAO.getStudentsFromCourse(course.getCourseId());
+		return studentsCoursesDAO.getStudentsFromCourse(course.getCourseId());
 	}
 	
 	public void addStudent(String firstName, String lastName) {

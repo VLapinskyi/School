@@ -1,4 +1,4 @@
-package ua.com.foxminded.dao;
+package ua.com.foxminded.dao.settings;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,7 +9,7 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
 public class ConnectionFactory {
-	private static Properties properties = PropertiesForDAO.getQueries();;
+	private static Properties properties = PropertiesForSettingUpDatabase.getDatabaseProperties();
 	private static Logger logger = LogManager.getLogger(ConnectionFactory.class);
 	private static Connection connection;
 	
@@ -18,6 +18,7 @@ public class ConnectionFactory {
 	private static final String PASSWORD = properties.getProperty("password");
 	
 	private ConnectionFactory() {
+		logger.error("ConnectionFactory class is utility class, so there is no reason to create object");
 	    throw new IllegalStateException("Utility class");
 	  }
 	

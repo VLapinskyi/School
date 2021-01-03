@@ -10,11 +10,14 @@ import java.util.Properties;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import ua.com.foxminded.dao.settings.ConnectionFactory;
+import ua.com.foxminded.dao.settings.PropertiesForQueries;
 import ua.com.foxminded.domain.Group;
 
 public class GroupDAO implements GenericDAO<Group> {
 	private static Logger logger = LogManager.getLogger(GroupDAO.class);
-	Properties properties = PropertiesForDAO.getQueries();
+	Properties properties = PropertiesForQueries.getQueries();
+	
 	@Override
 	public void create(Group group) {
 		String query = properties.getProperty("create.group");

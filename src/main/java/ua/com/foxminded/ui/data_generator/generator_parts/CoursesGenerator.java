@@ -1,8 +1,8 @@
-package ua.com.foxminded.ui.data_generator;
+package ua.com.foxminded.ui.data_generator.generator_parts;
 
 import ua.com.foxminded.domain.Service;
 
-class CoursesGenerator {
+public class CoursesGenerator {
 	
 	private Service service;
 	

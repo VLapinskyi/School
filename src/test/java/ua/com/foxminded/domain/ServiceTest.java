@@ -32,71 +32,35 @@ class ServiceTest {
 	}
 	
 	@Test
-	void shouldAddCourseToList() {
-		ArrayList<Course> database = new ArrayList<>();
-		Course expectedCourse = new Course("math", "room 101");
-		doAnswer(invocation -> {
-			database.add(invocation.getArgument(0));
-		return null;
-		}).when(courseDAO).create(any(Course.class));
-		service.addCourse("math", "room 101");
-		assertEquals(expectedCourse, database.get(database.size()-1));
+	void shouldAddCourseIntoDataBase() {
+		String courseName = "math";
+		String courseDescription = "room 101";
+		service.addCourse(courseName, courseDescription);
+		verify(courseDAO).create(any(Course.class));
 	}
 	
 	@Test
-	void shouldReturnAllCoursesFromList() {
-		ArrayList<Course> allCourses = new ArrayList<>(Arrays.asList(
-				new Course(1, "math", "room 101"),
-				new Course(2, "biology", "room 102"),
-				new Course(3, "english", "room 103"),
-				new Course(4, "ukranian", "room 104"),
-				new Course(5, "chemistry", "room 105")));
-		ArrayList<Course> allExpectedCourses = new ArrayList<>(Arrays.asList(
-				new Course(1, "math", "room 101"),
-				new Course(2, "biology", "room 102"),
-				new Course(3, "english", "room 103"),
-				new Course(4, "ukranian", "room 104"),
-				new Course(5, "chemistry", "room 105")));
-		
-		when(courseDAO.findAll()).thenReturn(allCourses);
-		assertEquals(allExpectedCourses, service.getAllCourses());
-		
+	void shouldInvokeFindAllForCourses() {
+		service.getAllCourses();
+		verify(courseDAO).findAll();
 	}
 	
 	@Test
-	void shouldAddGroupToList() {
-		ArrayList<Group> database = new ArrayList<>();
-		Group expectedGroup = new Group("QW-01");
-		doAnswer(invocation -> {
-			database.add(invocation.getArgument(0));
-		return null;
-		}).when(groupDAO).create(any(Group.class));
-		service.addGroup("QW-01");
-		assertEquals(expectedGroup, database.get(database.size()-1));
+	void shouldAddGroupIntoDatabase() {
+		String groupName = "QW-01";
+		service.addGroup(groupName);
+		verify(groupDAO).create(any(Group.class));
 	}
 	
 	@Test
-	void shouldReturnAllGroupsFromList() {
-		ArrayList<Group> allGroups = new ArrayList<>(Arrays.asList(
-				new Group(1, "QW-01"),
-				new Group(2, "AS-02"),
-				new Group(3, "ZX-03"),
-				new Group(4, "ER-04"),
-				new Group(5, "DF-05")));
-		ArrayList<Group> allExpectedGroups = new ArrayList<>(Arrays.asList(
-				new Group(1, "QW-01"),
-				new Group(2, "AS-02"),
-				new Group(3, "ZX-03"),
-				new Group(4, "ER-04"),
-				new Group(5, "DF-05")));
-		
-		when(groupDAO.findAll()).thenReturn(allGroups);
-		assertEquals(allExpectedGroups, service.getAllGroups());
+	void shouldInvokeFindAllForGroups() {
+		service.getAllGroups();
+		verify(groupDAO).findAll();
 	}
 
 	@Test
 	void shouldGetGroupsWithNoMoreThanThreeStudents() {
-		ArrayList<Group> allGroups = new ArrayList<>(Arrays.asList(
+		ArrayList <Group> allGroups = new ArrayList<>(Arrays.asList(
 				new Group(1, "QW-01"),
 				new Group(2, "AS-02"),
 				new Group(3, "ZX-03"),
@@ -112,6 +76,57 @@ class ServiceTest {
 				new Group(1, "QW-01"),
 				new Group(2, "AS-02"),
 				new Group(3, "ZX-03")));
-		assertEquals(expectedGroups, service.getGroupsWithNoMoreStudentsThan(3));	
+		assertEquals(expectedGroups, service.getGroupsWithNoMoreStudentsThan(3));
+		verify(groupDAO).findAll();
+		verify(studentDAO, times(allGroups.size())).getNumberOfStudentsInGroup(anyInt());
+	}
+	@Test
+	void shouldSetGroupForStudent() {
+		service.setGroupForStudent(anyInt(), anyInt());
+		verify(studentDAO).setGroupForStudent(anyInt(), anyInt());
+	}
+	
+	@Test
+	void shouldReturnStudentsFromCourseByCourseName() {
+		int courseId = 1;
+		String courseName = "math";
+		String courseDescription = "room 101";
+		Course course = new Course(courseId, courseName, courseDescription);
+		when(courseDAO.findByName(courseName)).thenReturn(course);
+		service.getStudentsFromCourseByCourseName(courseName);
+		verify(courseDAO).findByName(courseName);
+		verify(studentsCoursesDAO).getStudentsFromCourse(course.getCourseId());
+	}
+	
+	@Test
+	void shouldAddStudentIntoDatabase() {
+		String firstName = "Valentyn";
+		String lastName = "Lapinskyi";
+		service.addStudent(firstName, lastName);
+		verify(studentDAO).create(any(Student.class));
+	}
+	
+	@Test
+	void shouldDeleteStudentFromDatabase() {
+		service.deleteStudentById(anyInt());
+		verify(studentDAO).deleteById(anyInt());
+	}
+	
+	@Test
+	void shouldAddStudentToCourseInDatabase() {
+		service.addStudentToCourse(anyInt(), anyInt());
+		verify(studentsCoursesDAO).addStudentToCourse(anyInt(), anyInt());
+	}
+	
+	@Test
+	void shouldDeleteStudentFromCourseInDatabase() {
+		service.deleteStudentFromCourse(anyInt(), anyInt());
+		verify(studentsCoursesDAO).deleteStudentFromCourse(anyInt(), anyInt());
+	}
+	
+	@Test
+	void shouldInvoveFindAllForStudents() {
+		service.getAllStudents();
+		verify(studentDAO).findAll();
 	}
 }

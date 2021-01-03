@@ -1,7 +1,13 @@
-package ua.com.foxminded.ui.data_generator;
+package ua.com.foxminded.ui.data_generator.generator_parts;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.atLeastOnce;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,8 +26,8 @@ import ua.com.foxminded.dao.StudentDAO;
 import ua.com.foxminded.dao.StudentsCoursesDAO;
 import ua.com.foxminded.domain.Course;
 import ua.com.foxminded.domain.Group;
-import ua.com.foxminded.domain.Student;
 import ua.com.foxminded.domain.Service;
+import ua.com.foxminded.domain.Student;
 
 class StudentsGeneratorTest {
 	@Mock private CourseDAO courseDAO;
