@@ -17,17 +17,17 @@ import ua.com.foxminded.ui.data_generator.generator_parts.StudentsGenerator;
 import ua.com.foxminded.ui.data_generator.generator_parts.TablesCreator;
 
 public class Launch {
-	public static void main (String [] args) {
-		Service service = new Service(new GroupDAO(), new  StudentDAO(), new CourseDAO(), new StudentsCoursesDAO()); 
-		DataGenerator datagenerator = new DataGenerator(new TablesCreator(new TablesCreatorDAO()),
-				new GroupsGenerator(service), new CoursesGenerator(service), new StudentsGenerator(service));
-		datagenerator.generateRandomData(); 
-		ArrayList<Group> groupsWithNoMoreTenStudents = (ArrayList<Group>) service.getGroupsWithNoMoreStudentsThan(10);
-		ArrayList<Student> studentsOnCourse = (ArrayList<Student>) service.getStudentsFromCourseByCourseName("math");
-		service.addStudent("Valentyn", "Lapinskyi");
-		service.deleteStudentById(1);
-		service.addStudentToCourse(2, 3);
-		service.deleteStudentFromCourse(2, 3);
+    public static void main (String [] args) {
+        Service service = new Service(new GroupDAO(), new  StudentDAO(), new CourseDAO(), new StudentsCoursesDAO()); 
+        DataGenerator datagenerator = new DataGenerator(new TablesCreator(new TablesCreatorDAO()),
+                new GroupsGenerator(service), new CoursesGenerator(service), new StudentsGenerator(service));
+        datagenerator.generateRandomData(); 
+        ArrayList<Group> groupsWithNoMoreTenStudents = (ArrayList<Group>) service.getGroupsWithNoMoreStudentsThan(10);
+        ArrayList<Student> studentsOnCourse = (ArrayList<Student>) service.getStudentsFromCourseByCourseName("math");
+        service.addStudent("Valentyn", "Lapinskyi");
+        service.deleteStudentById(1);
+        service.addStudentToCourse(2, 3);
+        service.deleteStudentFromCourse(2, 3);
 
-	} 
+    } 
 }

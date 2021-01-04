@@ -6,9 +6,8 @@ import org.junit.jupiter.api.Test;
 
 class ConnectionFactoryTest {
 
-	@Test
-	void shouldGetConnection() {
-		assertNotEquals(null, ConnectionFactory.getConnection());
-	}
-
+    @Test
+    void shouldGetConnection() {
+        assertNotNull(ConnectionFactory.getConnection());
+    }
 }
