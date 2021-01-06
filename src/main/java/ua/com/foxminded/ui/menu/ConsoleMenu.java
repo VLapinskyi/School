@@ -94,20 +94,20 @@ public class ConsoleMenu {
     }
     
     int getNumberFromConsole () {
-        
-        String result = null;
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
-           result = reader.readLine();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder result = new StringBuilder();
+        try {
+           result.append( reader.readLine());
         } catch (IOException e) {
             logger.error("cannot read data from console", e);
         }
-        return Integer.parseInt(result);
+        return Integer.parseInt(result.toString());
     }
     
     String getTextFromConsole () {
-        
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         String result = null;
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
+        try {
            result = reader.readLine();
         } catch (IOException e) {
             logger.error("cannot read data from console", e);
