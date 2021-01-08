@@ -26,8 +26,11 @@ class ConsoleMenuTest {
     private final PrintStream standardOut = out;
     private ByteArrayOutputStream outputStreamCaptor;
 
-    @Mock private Service service;
-    @Mock private BufferedReader reader;
+    @Mock
+    private Service service;
+    @Mock
+    private BufferedReader reader;
+    
     private ConsoleMenu consoleMenu;
     private ConsoleMenu spyConsoleMenu;
     private StringJoiner expectedText;
