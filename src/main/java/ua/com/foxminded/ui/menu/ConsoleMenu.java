@@ -18,11 +18,28 @@ import ua.com.foxminded.domain.Student;
 public class ConsoleMenu {
     private static Logger logger = LogManager.getLogger(ConsoleMenu.class);
     private Service service;
+    private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
     
     public ConsoleMenu(Service service) {
         this.service = service;
     }
     
+    public Service getService() {
+        return service;
+    }
+
+    public void setService(Service service) {
+        this.service = service;
+    }
+
+    public BufferedReader getReader() {
+        return reader;
+    }
+
+    public void setReader(BufferedReader reader) {
+        this.reader = reader;
+    }
+
     public void getMenu () {
         out.println("Please, type the number of the menu item, which you want:");
         this.generateMenu().stream().forEach(out :: println);
@@ -94,10 +111,9 @@ public class ConsoleMenu {
     }
     
     int getNumberFromConsole () {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         StringBuilder result = new StringBuilder();
         try {
-           result.append( reader.readLine());
+           result.append(reader.readLine());
         } catch (IOException e) {
             logger.error("cannot read data from console", e);
         }
@@ -105,14 +121,13 @@ public class ConsoleMenu {
     }
     
     String getTextFromConsole () {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        String result = null;
+        StringBuilder result = new StringBuilder();
         try {
-           result = reader.readLine();
+           result.append(reader.readLine());
         } catch (IOException e) {
             logger.error("cannot read data from console", e);
         }
-        return result;
+        return result.toString();
     }
     
     void makeFirstAction() {
